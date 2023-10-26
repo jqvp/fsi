@@ -1,3 +1,4 @@
+from bisect import bisect_left
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
@@ -542,6 +543,28 @@ class FIFOQueue(Queue):
             self.A = self.A[self.start:]
             self.start = 0
         return e
+
+class SortedList():
+    """A sorted list for use in branch-and-bound searches"""
+
+    def __init__(self):
+        self.l = []
+    
+    def append(self, item):
+        return self.l.insert(
+            bisect_left(self.l, -item.path_cost, key=lambda x: -x.path_cost),
+            item
+        )
+
+    def __len__(self):
+        return len(self.l)
+
+    def extend(self, items):
+        for i in items:
+            self.append(i)
+
+    def pop(self):
+        return self.l.pop()
 
 
 
