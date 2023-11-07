@@ -544,6 +544,28 @@ class FIFOQueue(Queue):
         return e
 
 
+class SortedList():
+    """A sorted list for use in branch-and-bound searches"""
+
+    def __init__(self):
+        self.l = []
+    
+    def append(self, item):
+        return self.l.insert(
+            bisect_left(self.l, -item.path_cost, key=lambda x: -x.path_cost),
+            item
+        )
+
+    def __len__(self):
+        return len(self.l)
+
+    def extend(self, items):
+        for i in items:
+            self.append(i)
+
+    def pop(self):
+        return self.l.pop()
+
 
 ## Fig: The idea is we can define things like Fig[3,10] later.
 ## Alas, it is Fig[3,10] not Fig[3.10], because that would be the same as Fig[3.1]

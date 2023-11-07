@@ -11,6 +11,7 @@ print(search.breadth_first_graph_search(ab).path())
 second = time.time()
 print(search.depth_first_graph_search(ab).path())
 third = time.time()
+print(search.branch_and_bound_search(ab).path())
 
 print('First search = {:.8f}, Second search = {:.8f}'.format(float(second-first), float(third-second)))
 
