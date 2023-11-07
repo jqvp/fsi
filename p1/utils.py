@@ -1,3 +1,5 @@
+from bisect import bisect_left
+import math
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
@@ -566,6 +568,22 @@ class SortedList():
     def pop(self):
         return self.l.pop()
 
+class HeuristicSortedList(SortedList):
+    """A SortedList, including a heuristic in its calculation"""
+
+    def __init__(self, problem):
+        super().__init__()
+        self.problem = problem
+
+    def append(self, item):
+        return self.l.insert(
+            bisect_left(
+                self.l,
+                -(item.path_cost + self.problem.h(item)),
+                key=lambda x: -(x.path_cost + self.problem.h(x))
+            ),
+            item
+        )
 
 ## Fig: The idea is we can define things like Fig[3,10] later.
 ## Alas, it is Fig[3,10] not Fig[3.10], because that would be the same as Fig[3.1]

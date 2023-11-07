@@ -97,20 +97,22 @@ def graph_search(problem, fringe):
     """Search through the successors of a problem to find a goal.
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
-    generated = {}
+    generated = 1
+    visited = 0
     closed = {}
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
+        visited += 1
         if problem.goal_test(node.state):
-            print("Visited Nodes: ", len(closed) + 1, " || Generated Nodes: ", len(generated))
+            print("Visited Nodes:", visited, "|| Generated Nodes:", generated)
+            print("Total path cost:", node.path_cost)
             return node
         if node.state not in closed:
             #print("Visitando: ", node.state)
             closed[node.state] = True
             fringe.extend(node.expand(problem))
-            for i in node.expand(problem):
-                generated[i.state] = True
+            generated += len(node.expand(problem))
     return None
 
 
@@ -126,6 +128,10 @@ def depth_first_graph_search(problem):
 def branch_and_bound_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return graph_search(problem, SortedList())
+
+def branch_and_bound_subestimation_search(problem):
+    """Search the deepest nodes in the search tree first. [p 74]"""
+    return graph_search(problem, HeuristicSortedList(problem))
 
 
 
