@@ -18,8 +18,8 @@ def srch(problem):
     print(search.branch_and_bound_subestimation_search(problem).path())
     fifth = time.time()
 
-    print('\nFirst search = {:.8f}, Second search = {:.8f}'.format(float(second-first), float(third-second)))
-    print('Third search = {:.8f}, Fourth search = {:.8f}'.format(float(fourth-third), float(fifth-fourth)))
+    print('BFS search = {:.8f}, DFS search = {:.8f}, B&B no informado = {:.8f}, B&B informado = {:.8f}'.format(float(second-first), float(third-second), float(fourth-third), float(fifth-fourth)))
+
 print("----- A B")
 srch(search.GPSProblem('A', 'B', search.romania))
 print("----- O E")
